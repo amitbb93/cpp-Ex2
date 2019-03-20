@@ -32,6 +32,6 @@ struct node
 		node* search(int key, node *leaf);
 		int parent1(int key, node *leaf, node* p);
 		void print1(node * leaf);
-
+		node* deleteNode(node* root, int k);
 	};	
 }

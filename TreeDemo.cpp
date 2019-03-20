@@ -40,7 +40,7 @@ int main() {
     cout << "Caught exception!" << endl;
   }
   
-  try{
+  /*try{
 	ariel::Tree mytree;
 	mytree.insert(0);
     mytree.insert(-1);
@@ -59,5 +59,5 @@ int main() {
 
   } catch (...) {
     cout << "Caught exception!" << endl;
-  }	
+  }*/	
 }
