@@ -130,7 +130,10 @@ int Tree::left(int key){
 		if(temp->left != NULL)return temp->left->data;
 		else return -1;	
 	}	
-	else return -1;
+	else{
+		throw std::invalid_argument( "expception" );
+		return -1;
+	}
 }	
 int Tree::right(int key){
 	node * temp = search(key, this->r);
@@ -138,7 +141,10 @@ int Tree::right(int key){
 		if(temp->right != NULL)return temp->right->data;
 		else return -1;
 	}
-	else return -1;
+	else{
+		throw std::invalid_argument( "expception" );
+		return -1;
+	}
 }	
 void Tree::print(){ 
 	print1(this->r);

@@ -15,9 +15,7 @@ int main() {
   ariel::Tree threetree;  
   threetree.insert(5);
   threetree.insert(7);
-  threetree.insert(3);
-  
-  ariel::Tree mytree;  
+  threetree.insert(3); 
 
   badkan::TestCase tc("Binary tree");
   tc
@@ -35,12 +33,30 @@ int main() {
   .CHECK_EQUAL (threetree.parent(3), 5)
   .CHECK_EQUAL (threetree.parent(7), 5)
   .CHECK_EQUAL (threetree.left(5), 3)
-  
   .CHECK_EQUAL (threetree.right(5), 7)
-  .CHECK_THROWS(threetree.insert(3));
-  /*.CHECK_THROWS(threetree.left(6))
+  .CHECK_THROWS(threetree.insert(3))
+  .CHECK_THROWS(threetree.left(6))
   .CHECK_OK    (threetree.print())
-  .print();*/
+  .print();
+  
+  ///***///
+  ariel::Tree mytree;  
+  mytree.insert(1);
+  mytree.insert(0);
+  mytree.insert(16);
+  badkan::TestCase t("Binary tree");
+  t
+  .CHECK_EQUAL (mytree.size(), 3)
+  .CHECK_EQUAL (mytree.root(), 1)
+  .CHECK_EQUAL (mytree.parent(16), 1)
+  .CHECK_EQUAL (mytree.parent(0), 1)
+  .CHECK_EQUAL (mytree.left(1), 0)
+  .CHECK_EQUAL (mytree.right(1), 16)
+  .CHECK_THROWS(mytree.insert(16))
+  .CHECK_THROWS(mytree.left(6))
+  .CHECK_OK    (mytree.print())
+  .print();
+  ///***///
   
   cout << "You have " << tc.right() << " right answers and " << tc.wrong() << " wrong answers so your grade is " << tc.grade() << ". Great!" << endl;
 }
