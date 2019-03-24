@@ -2,6 +2,7 @@
 #include "Tree.hpp"
 //https://www.cprogramming.com/tutorial/lesson18.html
 //https://github.com/mdbaal/BinaryTree/blob/master/BinTree.cpp
+//https://www.geeksforgeeks.org/binary-search-tree-set-2-delete/
 using std::cout, std::endl;
 using namespace ariel;
 
@@ -142,7 +143,7 @@ node *Tree::search(int key, node *leaf)
 * \return the data of the root
 */
 int Tree::root(){
-	if(this->r==NULL)return -1;	
+	if(this->r==NULL)return NULL;	
 	else return this->r->data;
 }	
 
@@ -197,7 +198,10 @@ int Tree::left(int key){
 	node * temp = search(key, this->r);
 	if (temp != NULL){
 		if(temp->left != NULL)return temp->left->data;
-		else return -1;	
+		else{
+			throw std::invalid_argument("NULL exception");
+			return -1;	
+		}
 	}	
 	else{
 		throw std::invalid_argument( "expception" );
@@ -215,7 +219,10 @@ int Tree::right(int key){
 	node * temp = search(key, this->r);
 	if(temp != NULL){
 		if(temp->right != NULL)return temp->right->data;
-		else return -1;
+		else{
+			throw std::invalid_argument("NULL exception");
+			return -1;	
+		}
 	}
 	else{
 		throw std::invalid_argument( "expception" );
@@ -256,7 +263,10 @@ void Tree::print1(node * leaf){
 void Tree::remove(int key){
 	if(this->r!=NULL){
 		node* n = search(key, this->r);
-		if(n != NULL)this-> r = deleteNode(this->r,key);
+		if(n != NULL){
+			this-> r = deleteNode(this->r,key);
+			if(this->r != NULL) this->r->size = this->r->size - 1;
+		}
 		else throw std::invalid_argument( "expception" );
 	}
 	else throw std::invalid_argument( "expception" );
@@ -313,4 +323,18 @@ node* Tree::deleteNode(node* root, int key)
 int Tree::size(){
 	if(this->r!=NULL)return this->r->size;
 	else return 0;
+}
+
+void Tree::deleteTree(node* n)  
+{  
+	if (n != NULL){
+		if(n->left != NULL) deleteTree(n->left);  
+		if(n->right != NULL)deleteTree(n->right);  
+		delete(n);
+	}
+	else return;	  
+}
+
+node* Tree::getNode(){
+	return this->r;
 }

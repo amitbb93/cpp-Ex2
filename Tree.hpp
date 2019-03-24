@@ -33,5 +33,7 @@ struct node
 		int parent1(int key, node *leaf, node* p);
 		void print1(node * leaf);
 		node* deleteNode(node* root, int key);
+		void deleteTree(node* n);
+		node* getNode();
 	};	
 }
