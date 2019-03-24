@@ -44,8 +44,7 @@ int main() {
   mytree.insert(1);
   mytree.insert(0);
   mytree.insert(16);
-  badkan::TestCase t1("Binary tree");
-  t1
+  tc
   .CHECK_EQUAL (mytree.size(), 3)
   .CHECK_EQUAL (mytree.root(), 1)
   .CHECK_EQUAL (mytree.parent(16), 1)
@@ -66,8 +65,7 @@ int main() {
   mytree2.insert(1);
   mytree2.insert(2);
   mytree2.insert(-2);
-  badkan::TestCase t2("Binary tree");
-  t2
+  tc
   .CHECK_EQUAL (mytree2.size(), 6)
   .CHECK_EQUAL (mytree2.root(), 0)
   .CHECK_EQUAL (mytree2.parent(1), 10)
