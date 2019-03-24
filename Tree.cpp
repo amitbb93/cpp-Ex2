@@ -3,9 +3,12 @@
 //https://www.cprogramming.com/tutorial/lesson18.html
 //https://github.com/mdbaal/BinaryTree/blob/master/BinTree.cpp
 using std::cout, std::endl;
-
 using namespace ariel;
 
+/**
+* Default Constructor
+* \r is root
+*/
 node::node(){
 	node* r = NULL;
 	this->data=0;
@@ -14,6 +17,10 @@ node::node(){
 	size = 0;
 }
 
+/**
+* Constructor gets a key and inserts it to the nodes data
+* \r is root
+*/
 node::node(int key){
 	node* r =NULL;
 	this->data=key;	
@@ -21,17 +28,26 @@ node::node(int key){
     this->right = NULL; 
 	size = 0;
 }
-	
+
+/**
+* Tree Constructor connect to the root
+*/	
 ariel::Tree t;
 Tree::Tree()
 {
 	this->r = new node();
 }
 
+/**
+* This function inserts a new node for the tree.
+* It calls "Search" & "insert1" functions
+* \key is the data of the new node
+* \*temp is a temporary node pointer
+*/
 void Tree::insert(int key){
 	if((r!=NULL) && (this->r->size!=0)){
-		node * n = search(key, this->r);
-		if(n != NULL){
+		node * temp = search(key, this->r);
+		if(temp != NULL){
 			return throw std::invalid_argument( "expception" );
 		}
 		insert1(key, this->r);
@@ -47,30 +63,35 @@ void Tree::insert(int key){
 	}
 }	
 
-void Tree::insert1(int key, node *leaf)
+/**
+* This function responsible for insert the new node which created at the "insert" function
+* \r is the root
+* \key is the data of the new node
+*/
+void Tree::insert1(int key, node *r)
 {
-	if(key< leaf->data)
+	if(key< r->data)
 	{
-    if(leaf->left!=NULL)
-     insert1(key, leaf->left);
+    if(r->left!=NULL)
+     insert1(key, r->left);
     else
     {
-      leaf->left=new node;
-      leaf->left->data=key;
-      leaf->left->left=NULL;    //Sets the left child of the child node to null
-      leaf->left->right=NULL;   //Sets the right child of the child node to null
+      r->left=new node;
+      r->left->data=key;
+      r->left->left=NULL;    
+      r->left->right=NULL;
     }  
   }
-  else if(key>leaf->data)
+  else if(key>r->data)
   {
-    if(leaf->right!=NULL)
-      insert1(key, leaf->right);
+    if(r->right!=NULL)
+      insert1(key, r->right);
     else
     {
-      leaf->right=new node;
-      leaf->right->data=key;
-      leaf->right->left=NULL;  //Sets the left child of the child node to null
-      leaf->right->right=NULL; //Sets the right child of the child node to null
+      r->right=new node;
+      r->right->data=key;
+      r->right->left=NULL;  
+      r->right->right=NULL; 
     }
   }
   else{
@@ -78,6 +99,13 @@ void Tree::insert1(int key, node *leaf)
   }
 }
 
+/**
+* This function checks if the tree contains a certain key
+* This functions also calls "Serach" function  
+* \r is root
+* \key is the data of the node 
+* \return true if the tree contains the key
+*/
 bool Tree::contains(int key){
 	node * temp = search(key, this->r);
 	if(temp!=NULL){
@@ -88,6 +116,12 @@ bool Tree::contains(int key){
 	}	
 }	
 
+/**
+* This function searchs the tree for a certain node
+* \key is a node that we are searching for
+* \leaf is a node in the tree which we start the search from
+* \return the node we searched for or NULL if does not exist
+*/
 node *Tree::search(int key, node *leaf)
 {
   if(leaf!=NULL)
@@ -101,13 +135,41 @@ node *Tree::search(int key, node *leaf)
   }
   else return NULL;
 }
+
+/**
+* This function returns the root data
+* \r is root
+* \return the data of the root
+*/
 int Tree::root(){
 	if(this->r==NULL)return -1;	
 	else return this->r->data;
 }	
+
+/**
+* This function checks if the key is the root
+* This function calls "Parent1" function
+* \r is root
+* \key is the data of the node which parent is needed to be returned at "Parent1" function
+* \*p is the parent of the node we are searching for
+* \return NULL if the node is the root (has no parent) 
+*/
 int Tree::parent(int key){
-	return parent1(key, this->r, NULL);
+	if (this->r->data==key){
+		//throw std::invalid_argument("exception: root doesn't have a parent");;
+		return NULL;
+	}
+	node *p = NULL;
+	return parent1(key, this->r, p);
 }
+
+/**
+* This function returns the parent of the node with the exact key
+* \r is root
+* \*leaf is "this" node
+* \*p is the parent of the node we are searching for
+* \return the parent 
+*/
 int Tree::parent1(int key, node *leaf, node* p){
 	if(leaf!=NULL)
 	{
@@ -124,6 +186,13 @@ int Tree::parent1(int key, node *leaf, node* p){
 	}
   else return -1;
 }	
+
+/**
+* This function uses "Search" function to find the left node of the certain key
+* \key is the nodes data
+* \*temp is a temp node which needed for the search function
+* \return the left node or NULL if does not exist and throw an exception
+*/
 int Tree::left(int key){
 	node * temp = search(key, this->r);
 	if (temp != NULL){
@@ -135,6 +204,13 @@ int Tree::left(int key){
 		return -1;
 	}
 }	
+
+/**
+* This function uses "Search" function to find the right node of the certain key
+* \key is the nodes data
+* \*temp is a temp node which needed for the search function
+* \return the right node or NULL if does not exist and throw an exception
+*/
 int Tree::right(int key){
 	node * temp = search(key, this->r);
 	if(temp != NULL){
@@ -146,28 +222,37 @@ int Tree::right(int key){
 		return -1;
 	}
 }	
+
+/**
+* This function uses "Print1" to print the tree
+*/
+
 void Tree::print(){ 
 	print1(this->r);
     
 }	
+
+/**
+* This function prints the tree in a coloum starting from the maximum, ends up in minimum key
+* \*leaf is "this" node
+*/
 void Tree::print1(node * leaf){ 
-	// Base case  
-    if (leaf != NULL) { 
-		
-		// Process right child first  
-		print1(leaf->right);  
-	  
-		// Print current node after space  
-		// count  
+    if (leaf != NULL) {  
+		print1(leaf->right);   
 		cout<<endl;  
 		for (int i = 0; i < 1; i++)  
 			cout<<" ";  
-	 	cout<<leaf->data<<"\n";  
-	  
-		// Process left child  
+	 	cout<<leaf->data<<"\n";   
 		print1(leaf->left);  
 	}  
 }
+
+/**
+* This function searches the specific key in the tree with "Search" function and than remove this node with "deleteNode" function
+* \r is the root
+* \key is the data of the node we wish to remove from the tree
+* \*n is the node needed for the return from search function
+*/
 void Tree::remove(int key){
 	if(this->r!=NULL){
 		node* n = search(key, this->r);
@@ -177,26 +262,25 @@ void Tree::remove(int key){
 	else throw std::invalid_argument( "expception" );
 }
 
-node* Tree::deleteNode(node* root, int k) 
+/**
+* This function responsiblefor deleting the node 
+* \*root is the root of the tree
+* \key is the data of the node we wish to remove
+* \*temp,temp2,temp3 are temporary nodes
+* \return the new root after the changes 
+*/
+node* Tree::deleteNode(node* root, int key) 
 { 
     if (root == NULL) 
         return root; 
-  
-    // Recursive calls for ancestors of 
-    // node to be deleted 
-    if (root->data > k) { 
-        root->left = deleteNode(root->left, k); 
+    if (root->data > key) { 
+        root->left = deleteNode(root->left, key); 
         return root; 
     } 
-    else if (root->data < k) { 
-        root->right = deleteNode(root->right, k); 
+    else if (root->data < key) { 
+        root->right = deleteNode(root->right, key); 
         return root; 
     } 
-  
-    // We reach here when root is the node 
-    // to be deleted. 
-  
-    // If one of the children is empty 
     if (root->left == NULL) { 
         node* temp = root->right; 
         delete root; 
@@ -207,34 +291,25 @@ node* Tree::deleteNode(node* root, int k)
         delete root; 
         return temp; 
     } 
-  
-    // If both children exist 
     else { 
   
-        node* succParent = root->right; 
-          
-        // Find successor 
-        node *succ = root->right; 
-        while (succ->left != NULL) { 
-            succParent = succ; 
-            succ = succ->left; 
+        node* temp2 = root->right; 
+        node *temp3 = root->right; 
+        while (temp3->left != NULL) { 
+            temp2 = temp3; 
+            temp3 = temp3->left; 
         } 
-  
-        // Delete successor.  Since successor 
-        // is always left child of its parent 
-        // we can safely make successor's right 
-        // right child as left of its parent. 
-        succParent->left = succ->right; 
-  
-        // Copy Successor Data to root 
-        root->data = succ->data; 
-  
-        // Delete Successor and return root 
-        delete succ;          
+        temp2->left = temp3->right; 
+        root->data = temp3->data; 
+        delete temp3;          
         return root; 
     } 
 }	
-	
+
+/**
+* This function returns the size of the tree
+* \return the size of the tree
+*/	
 int Tree::size(){
 	if(this->r!=NULL)return this->r->size;
 	else return 0;

@@ -44,8 +44,8 @@ int main() {
   mytree.insert(1);
   mytree.insert(0);
   mytree.insert(16);
-  badkan::TestCase t("Binary tree");
-  t
+  badkan::TestCase t1("Binary tree");
+  t1
   .CHECK_EQUAL (mytree.size(), 3)
   .CHECK_EQUAL (mytree.root(), 1)
   .CHECK_EQUAL (mytree.parent(16), 1)
@@ -56,7 +56,34 @@ int main() {
   .CHECK_THROWS(mytree.left(6))
   .CHECK_OK    (mytree.print())
   .print();
+  
+  /////////////////////////////////
+  
+  ariel::Tree mytree2;  
+  mytree2.insert(0);
+  mytree2.insert(-1);
+  mytree2.insert(10);
+  mytree2.insert(1);
+  mytree2.insert(2);
+  mytree2.insert(-2);
+  badkan::TestCase t2("Binary tree");
+  t2
+  .CHECK_EQUAL (mytree2.size(), 6)
+  .CHECK_EQUAL (mytree2.root(), 0)
+  .CHECK_EQUAL (mytree2.parent(1), 10)
+  .CHECK_EQUAL (mytree2.parent(0), NULL)
+  .CHECK_EQUAL (mytree2.left(-1), -2)
+  .CHECK_EQUAL (mytree2.right(1), 2)
+  .CHECK_OK(mytree2.insert(12))
+  .CHECK_EQUAL (mytree2.size(), 7)
+  .CHECK_THROWS(mytree2.left(-4))
+  .CHECK_THROWS(mytree2.remove(3))
+  .CHECK_OK    (mytree2.print())
+  .print();
+  
+  
   ///***///
   
   cout << "You have " << tc.right() << " right answers and " << tc.wrong() << " wrong answers so your grade is " << tc.grade() << ". Great!" << endl;
+
 }
