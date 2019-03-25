@@ -258,13 +258,12 @@ void Tree::print(){
 */
 void Tree::print1(node * leaf){ 
     if (leaf != NULL) {  
-		print1(leaf->right);   
-		cout<<endl;  
+		print1(leaf->right);
+		cout<<" ";
 		for (int i = 0; i < 1; i++)  
-			cout<<" ";  
-	 	cout<<leaf->data<<"\n";   
+	 	cout<<leaf->data<<" ";   
 		print1(leaf->left);  
-	}  
+	}
 }
 
 /**

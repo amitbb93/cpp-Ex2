@@ -13,7 +13,7 @@ using std::cout, std::endl;
 int main() {
   ariel::Tree emptytree;
   ariel::Tree threetree;  
-  threetree.insert(5);
+  /*threetree.insert(5);
   threetree.insert(7);
   threetree.insert(3); 
 
@@ -39,7 +39,8 @@ int main() {
   .CHECK_OK    (threetree.print())
   .print();
   
-  ///***///
+  /////////////////////////////////
+  
   ariel::Tree mytree;  
   mytree.insert(1);
   mytree.insert(0);
@@ -82,11 +83,41 @@ int main() {
   .print();
   
   
-  ///***///
-  /*threetree.deleteTree(threetree.getNode());
+  threetree.deleteTree(threetree.getNode());
   emptytree.deleteTree(emptytree.getNode());
   mytree.deleteTree(mytree.getNode());
   mytree2.deleteTree(mytree2.getNode());*/
 
-  cout << "You have " << tc.right() << " right answers and " << tc.wrong() << " wrong answers so your grade is " << tc.grade() << ". Great!" << endl;
+	badkan::TestCase tc("Binary tree");
+	int n=0;
+	for(int i=-50;i<=100;i++){
+		n++;
+		tc
+		.CHECK_OK(threetree.insert(i))
+		.CHECK_EQUAL (threetree.size(), n)
+		.CHECK_EQUAL (threetree.root(), -50);
+	}
+	
+	for(int i=-25;i<=50;i++){
+		tc
+		.CHECK_THROWS(threetree.insert(i))
+		.CHECK_EQUAL (threetree.contains(i), true)
+		.CHECK_EQUAL (threetree.contains(i+1000), false)
+		.CHECK_THROWS(threetree.remove(i+1000))
+		.CHECK_OK(threetree.remove(i));
+	}
+	threetree.print();
+	/*tc
+  .CHECK_EQUAL (threetree.size(), 3)
+  .CHECK_EQUAL (threetree.root(), 5)
+  .CHECK_EQUAL (threetree.parent(3), 5)
+  .CHECK_EQUAL (threetree.parent(7), 5)
+  .CHECK_EQUAL (threetree.left(5), 3)
+  .CHECK_EQUAL (threetree.right(5), 7)
+  .CHECK_THROWS(threetree.insert(3))
+  .CHECK_THROWS(threetree.left(6))
+  .CHECK_OK    (threetree.print())*/
+	
+
+  cout << "\nYou have " << tc.right() << " right answers and " << tc.wrong() << " wrong answers so your grade is " << tc.grade() << ". Great!" << endl;
 }
