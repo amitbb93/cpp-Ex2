@@ -212,12 +212,12 @@ int Tree::left(int key){
 		if(temp->left != NULL)return temp->left->data;
 		else{
 			throw std::invalid_argument("NULL exception");
-			return -1;	
+			return NULL;	
 		}
 	}	
 	else{
 		throw std::invalid_argument( "expception" );
-		return -1;
+		return NULL;
 	}
 }	
 
@@ -233,12 +233,12 @@ int Tree::right(int key){
 		if(temp->right != NULL)return temp->right->data;
 		else{
 			throw std::invalid_argument("NULL exception");
-			return -1;	
+			return NULL;	
 		}
 	}
 	else{
 		throw std::invalid_argument( "expception" );
-		return -1;
+		return NULL;
 	}
 }	
 
