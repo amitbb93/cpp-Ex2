@@ -39,7 +39,7 @@ int main() {
   .CHECK_OK    (threetree.print())
   .print();
   
-   /////////////////////////////////
+  ///***///
   ariel::Tree mytree;  
   mytree.insert(1);
   mytree.insert(0);
@@ -82,11 +82,11 @@ int main() {
   .print();
   
   
+  ///***///
   /*threetree.deleteTree(threetree.getNode());
   emptytree.deleteTree(emptytree.getNode());
   mytree.deleteTree(mytree.getNode());
   mytree2.deleteTree(mytree2.getNode());*/
 
   cout << "You have " << tc.right() << " right answers and " << tc.wrong() << " wrong answers so your grade is " << tc.grade() << ". Great!" << endl;
-
 }

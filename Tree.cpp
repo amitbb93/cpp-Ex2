@@ -108,13 +108,18 @@ void Tree::insert1(int key, node *r)
 * \return true if the tree contains the key
 */
 bool Tree::contains(int key){
-	node * temp = search(key, this->r);
-	if(temp!=NULL){
-		return true;
+	if(this->r!=NULL){
+		node * temp = search(key, this->r);
+		if(temp!=NULL){
+			return true;
+		}
+		else{
+			return false;
+		}	
 	}
 	else{
 		return false;
-	}	
+	}
 }	
 
 /**
@@ -143,8 +148,11 @@ node *Tree::search(int key, node *leaf)
 * \return the data of the root
 */
 int Tree::root(){
-	if(this->r==NULL)return NULL;	
-	else return this->r->data;
+	if(this->r!=NULL)return this->r->data;
+	else{ 	 
+		throw std::invalid_argument( "expception" );	
+		return NULL;
+	}
 }	
 
 /**
@@ -156,12 +164,17 @@ int Tree::root(){
 * \return NULL if the node is the root (has no parent) 
 */
 int Tree::parent(int key){
-	if (this->r->data==key){
-		//throw std::invalid_argument("exception: root doesn't have a parent");;
-		return NULL;
-	}
+	if(this->r!=NULL){
+		if (this->r->data==key){
+			return NULL;
+		}
 	node *p = NULL;
 	return parent1(key, this->r, p);
+	}
+	else{
+		//throw std::invalid_argument( "expception" );
+		return NULL;
+	}
 }
 
 /**
@@ -336,5 +349,8 @@ void Tree::deleteTree(node* n)
 }
 
 node* Tree::getNode(){
-	return this->r;
+	if(this->r!=NULL)
+		return this->r;
+	else
+		return NULL;
 }
