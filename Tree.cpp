@@ -172,7 +172,7 @@ int Tree::parent(int key){
 	return parent1(key, this->r, p);
 	}
 	else{
-		//throw std::invalid_argument( "expception" );
+		throw std::invalid_argument( "expception" );
 		return NULL;
 	}
 }
@@ -198,7 +198,6 @@ int Tree::parent1(int key, node *leaf, node* p){
 			return parent1(key, leaf->right,p);
 		}
 	}
-  else return -1;
 }	
 
 /**
