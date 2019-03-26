@@ -270,11 +270,13 @@ void Tree::print1(node * leaf){
 * \*n is the node needed for the return from search function
 */
 void Tree::remove(int key){
+	int sz = 0;
+	if((this->r!=NULL)) if(this->r->data == key) sz = this->r->size;
 	if(this->r!=NULL){
 		node* n = search(key, this->r);
 		if(n != NULL){
 			this-> r = deleteNode(this->r,key);
-			if(this->r != NULL) this->r->size = this->r->size-1;
+			if(this->r != NULL) this->r->size = this->r->size-1+sz;
 		}
 		else throw std::invalid_argument( "expception" );
 	}
@@ -288,6 +290,67 @@ void Tree::remove(int key){
 * \*temp,temp2,temp3 are temporary nodes
 * \return the new root after the changes 
 */
+
+//////////////////////////////////////////
+node* Tree::deleteNode(node* root, int data)
+ {
+  if (root == NULL) {
+     return NULL;
+  }
+  if (data < root->data) {  // data is in the left sub tree.
+      root->left = deleteNode(root->left, data);
+  } else if (data > root->data) { // data is in the right sub tree.
+      root->right = deleteNode(root->right, data);
+  } else {
+     // case 1: no children
+     if (root->left == NULL && root->right == NULL) {
+        delete(root); // wipe out the memory, in C, use free function
+        root = NULL;
+     }
+     // case 2: one child (right)
+     else if (root->left == NULL) {
+        node *temp = root; // save current node as a backup
+		root->size=temp->size;
+        root = root->right;
+        delete temp;
+		temp = NULL;
+
+     }
+     // case 3: one child (left)
+     else if (root->right == NULL) {
+        node *temp = root; // save current node as a backup
+		root->size=temp->size;
+        root = root->left;
+        delete temp;
+		temp = NULL;
+     }
+     // case 4: two children
+     else {
+        node *temp = FindMin(root->right); // find minimal value of right sub tree
+        root->data = temp->data; // duplicate the node
+        root->right = deleteNode(root->right, temp->data); // delete the duplicate node
+     }
+  }
+  return root; // parent node can update reference
+}
+
+node* Tree::FindMin(node *root) {
+   if (root == NULL) {
+      return NULL;
+   }
+   if (root->left != NULL) {
+      return FindMin(root->left); // left tree is smaller
+   }
+   return root;
+}
+
+//////////////////////////////////////////////////
+
+
+
+
+
+/*
 node* Tree::deleteNode(node* root, int key) 
 { 
     if (root == NULL) 
@@ -333,7 +396,7 @@ node* Tree::deleteNode(node* root, int key)
 		temp3 = NULL;		
         return root; 
     } 
-}	
+}	*/
 
 /**
 * This function returns the size of the tree

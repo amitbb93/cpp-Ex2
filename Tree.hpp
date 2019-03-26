@@ -35,5 +35,6 @@ struct node
 		node* deleteNode(node* root, int key);
 		void deleteTree(node* n);
 		node* getNode();
+		node* FindMin(node *root);
 	};	
 }
