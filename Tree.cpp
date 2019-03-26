@@ -342,7 +342,7 @@ node* Tree::deleteNode(node* root, int key)
 int Tree::size(){
 	
 	if(this->r!=NULL){
-		cout<< "SIZE:  " <<r->size<<" ";
+		//cout<< "SIZE:  " <<r->size<<" ";
 		return this->r->size;
 	}
 	else return 0;
