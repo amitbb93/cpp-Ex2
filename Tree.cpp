@@ -95,9 +95,7 @@ void Tree::insert1(int key, node *r)
       r->right->right=NULL; 
     }
   }
-  else{
-	  //throw std::invalid_argument("The number is already there");
-  }
+
 }
 
 /**
@@ -151,7 +149,7 @@ int Tree::root(){
 	if(this->r!=NULL)return this->r->data;
 	else{ 	 
 		throw std::invalid_argument( "expception" );	
-		return NULL;
+		return 0;
 	}
 }	
 
@@ -166,14 +164,14 @@ int Tree::root(){
 int Tree::parent(int key){
 	if(this->r!=NULL){
 		if (this->r->data==key){
-			return NULL;
+			return 0;
 		}
 	node *p = NULL;
 	return parent1(key, this->r, p);
 	}
 	else{
 		throw std::invalid_argument( "expception" );
-		return NULL;
+		return 0;
 	}
 }
 
@@ -198,6 +196,7 @@ int Tree::parent1(int key, node *leaf, node* p){
 			return parent1(key, leaf->right,p);
 		}
 	}
+	else return 0;
 }	
 
 /**
@@ -212,12 +211,12 @@ int Tree::left(int key){
 		if(temp->left != NULL)return temp->left->data;
 		else{
 			throw std::invalid_argument("NULL exception");
-			return NULL;	
+			return 0;	
 		}
 	}	
 	else{
 		throw std::invalid_argument( "expception" );
-		return NULL;
+		return 0;
 	}
 }	
 
@@ -233,12 +232,12 @@ int Tree::right(int key){
 		if(temp->right != NULL)return temp->right->data;
 		else{
 			throw std::invalid_argument("NULL exception");
-			return NULL;	
+			return 0;	
 		}
 	}
 	else{
 		throw std::invalid_argument( "expception" );
-		return NULL;
+		return 0;
 	}
 }	
 
@@ -276,7 +275,7 @@ void Tree::remove(int key){
 		node* n = search(key, this->r);
 		if(n != NULL){
 			this-> r = deleteNode(this->r,key);
-			if(this->r != NULL) this->r->size = this->r->size - 1;
+			if(this->r != NULL) this->r->size = this->r->size-1;
 		}
 		else throw std::invalid_argument( "expception" );
 	}
@@ -285,7 +284,7 @@ void Tree::remove(int key){
 
 /**
 * This function responsiblefor deleting the node 
-* \*root is the root of the tree
+* \*root is tshe root of the tree
 * \key is the data of the node we wish to remove
 * \*temp,temp2,temp3 are temporary nodes
 * \return the new root after the changes 
@@ -304,25 +303,34 @@ node* Tree::deleteNode(node* root, int key)
     } 
     if (root->left == NULL) { 
         node* temp = root->right; 
+		if((this->r!=NULL) && (temp!=NULL))temp->size=this->r->size;
         delete root; 
+		root = NULL;
         return temp; 
     } 
     else if (root->right == NULL) { 
         node* temp = root->left; 
+		if((this->r!=NULL) && (temp!=NULL))temp->size=this->r->size;
         delete root; 
+		root = NULL;
         return temp; 
     } 
     else { 
   
         node* temp2 = root->right; 
         node *temp3 = root->right; 
+		//temp2->size=this->r->size;
+		//temp3->size=this->r->size;
+
         while (temp3->left != NULL) { 
             temp2 = temp3; 
             temp3 = temp3->left; 
         } 
         temp2->left = temp3->right; 
         root->data = temp3->data; 
-        delete temp3;          
+		if((this->r!=NULL) && (root!=NULL)) root->size=this->r->size;
+        delete temp3;
+		temp3 = NULL;		
         return root; 
     } 
 }	
@@ -332,7 +340,11 @@ node* Tree::deleteNode(node* root, int key)
 * \return the size of the tree
 */	
 int Tree::size(){
-	if(this->r!=NULL)return this->r->size;
+	
+	if(this->r!=NULL){
+		cout<< "SIZE:  " <<r->size<<" ";
+		return this->r->size;
+	}
 	else return 0;
 }
 
@@ -347,8 +359,13 @@ void Tree::deleteTree(node* n)
 }
 
 node* Tree::getNode(){
-	if(this->r!=NULL)
+	if(this->r!=NULL){
+		cout<<"NOT NULL"<<endl;
 		return this->r;
-	else
-		return NULL;
+	}
+	else{
+		cout<<"NULL"<<endl;
+	return NULL;}
 }
+
+
