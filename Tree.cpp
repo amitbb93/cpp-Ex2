@@ -52,7 +52,7 @@ void Tree::insert(int key){
 			return throw std::invalid_argument( "expception" );
 		}
 		insert1(key, this->r);
-		this->r->size=this->r->size+1;
+		if(this->r !=NULL)this->r->size=this->r->size+1;
 	}
 	else
 	{
