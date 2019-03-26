@@ -73,29 +73,28 @@ void Tree::insert1(int key, node *r)
 {
 	if(key< r->data)
 	{
-    if(r->left!=NULL)
-     insert1(key, r->left);
-    else
-    {
-      r->left=new node;
-      r->left->data=key;
-      r->left->left=NULL;    
-      r->left->right=NULL;
-    }  
-  }
-  else if(key>r->data)
-  {
-    if(r->right!=NULL)
-      insert1(key, r->right);
-    else
-    {
-      r->right=new node;
-      r->right->data=key;
-      r->right->left=NULL;  
-      r->right->right=NULL; 
-    }
-  }
-
+		if(r->left!=NULL)
+			insert1(key, r->left);
+		else
+		{
+			r->left=new node;
+			r->left->data=key;
+			r->left->left=NULL;    
+			r->left->right=NULL;
+		}  
+	}
+	else if(key>r->data)
+	{
+		if(r->right!=NULL)
+			insert1(key, r->right);
+		else
+		{
+			r->right=new node;
+			r->right->data=key;
+			r->right->left=NULL;  
+			r->right->right=NULL; 
+		}
+	}
 }
 
 /**
@@ -294,15 +293,15 @@ node* Tree::deleteNode(node* root, int key)
     if (root == NULL) 
         return root; 
     if (root->data > key) { 
-        root->left = deleteNode(root->left, key); 
+        if(this->r->left!=NULL)root->left = deleteNode(root->left, key); 
         return root; 
     } 
     else if (root->data < key) { 
-        root->right = deleteNode(root->right, key); 
+        if(this->r->right!=NULL)root->right = deleteNode(root->right, key); 
         return root; 
     } 
-    if (root->left == NULL) { 
-        node* temp = root->right; 
+    if (root->left == NULL) {
+		node* temp = root->right; 
 		if((this->r!=NULL) && (temp!=NULL))temp->size=this->r->size;
         delete root; 
 		root = NULL;
@@ -317,8 +316,9 @@ node* Tree::deleteNode(node* root, int key)
     } 
     else { 
   
-        node* temp2 = root->right; 
-        node *temp3 = root->right; 
+        
+			node* temp2 = root->right; 
+			node *temp3 = root->right; 
 		//temp2->size=this->r->size;
 		//temp3->size=this->r->size;
 

@@ -42,18 +42,27 @@ int main() {
 
 //////////////////////////////////////////////////////////////////////////////////
 
-/*
+
 ariel::Tree lihistree;  
 
   badkan::TestCase tc6("Binary tree");
   tc6
-.CHECK_OK (lihistree.insert(5))
-.CHECK_OK (lihistree.remove(5))
+.CHECK_OK (lihistree.insert(70))
+.CHECK_OK (lihistree.insert(60))
+.CHECK_OK (lihistree.insert(40))
+.CHECK_OK (lihistree.insert(30))
+.CHECK_OK (lihistree.insert(20))
+.CHECK_THROWS (lihistree.insert(70))
+.CHECK_THROWS (lihistree.insert(60))
+.CHECK_THROWS (lihistree.insert(40))
+.CHECK_THROWS (lihistree.insert(30))
+.CHECK_THROWS (lihistree.insert(20))
+.CHECK_OK (lihistree.remove(20))
 .CHECK_OK (lihistree.insert(5))
 .CHECK_OK (lihistree.remove(5));
-//lihistree.print();
+lihistree.print();
 	cout << "\nYou have " << tc6.right() << " right answers and " << tc6.wrong() << " wrong answers so your grade is " << tc6.grade() << ". Great!" << endl;
-*/
+
 
 
 
