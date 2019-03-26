@@ -246,7 +246,7 @@ int Tree::right(int key){
 
 void Tree::print(){ 
 	print1(this->r);
-    
+    cout<<"----------------------"<<endl;
 }	
 
 /**
