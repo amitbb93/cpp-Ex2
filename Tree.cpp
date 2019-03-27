@@ -3,6 +3,7 @@
 //https://www.cprogramming.com/tutorial/lesson18.html
 //https://github.com/mdbaal/BinaryTree/blob/master/BinTree.cpp
 //https://www.geeksforgeeks.org/binary-search-tree-set-2-delete/
+//https://helloacm.com/how-to-delete-a-node-from-a-binary-search-tree/
 using std::cout, std::endl;
 using namespace ariel;
 
@@ -51,7 +52,7 @@ void Tree::insert(int key){
 		if(temp != NULL){
 			return throw std::invalid_argument( "expception" );
 		}
-		insert1(key, this->r);
+		insert1(key,this->r);
 		if(this->r !=NULL)this->r->size=this->r->size+1;
 	}
 	else
@@ -69,6 +70,28 @@ void Tree::insert(int key){
 * \r is the root
 * \key is the data of the new node
 */
+ ////////////////////////////////////////////
+ // החלפנו בין ה-R לKEY
+/* void Tree::insert1(node *r, int key)
+{
+	if(r!=NULL){
+		if(r->data > key){
+			insert1(r->left,key);
+		}
+		else
+		{
+			insert1(r->right,key);
+		}
+	}
+	else {
+		r = new node(key);
+	}
+}
+*/
+
+
+
+
 void Tree::insert1(int key, node *r)
 {
 	if(key< r->data)
