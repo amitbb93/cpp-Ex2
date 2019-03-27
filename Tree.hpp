@@ -16,6 +16,7 @@ struct node
 	class Tree
 	{
 		public:
+		int z;
 		node* r;	
 		Tree();
 		void insert(int key);

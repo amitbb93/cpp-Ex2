@@ -265,7 +265,9 @@ lihistree.print();
   .CHECK_OK    (fourlefttree.print())
 
 
-  .CHECK_THROWS (ninetree.root())
+  .CHECK_THROWS (ninetree.root());
+  ninetree.print();
+  tc
   .CHECK_EQUAL (ninetree.size(),0)
   .CHECK_OK    (ninetree.insert(3))
   .CHECK_OK    (ninetree.insert(1))

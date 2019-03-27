@@ -38,6 +38,7 @@ ariel::Tree t;
 Tree::Tree()
 {
 	this->r = new node();
+	z = 0;
 }
 
 /**
@@ -47,7 +48,7 @@ Tree::Tree()
 * \*temp is a temporary node pointer
 */
 void Tree::insert(int key){
-	if((r!=NULL) && (this->r->size!=0)){
+	if((r!=NULL) && (this->z!=0)){
 		node * temp = search(key, this->r);
 		if(temp != NULL){
 			return throw std::invalid_argument( "expception" );
@@ -64,6 +65,7 @@ void Tree::insert(int key){
 		this->r->right=NULL;
 		this->r->size=this->r->size+1;
 	}
+	this->z++;
 }	
 
 /**
@@ -169,10 +171,9 @@ node *Tree::search(int key, node *leaf)
 * \return the data of the root
 */
 int Tree::root(){
-	if(this->r!=NULL)return this->r->data;
+	if((this->r!=NULL) && (this->z!=0))return this->r->data;
 	else{ 	 
 		throw std::invalid_argument( "expception" );	
-		return 0;
 	}
 }	
 
@@ -307,6 +308,7 @@ void Tree::remove(int key){
 		if(n != NULL){
 			this-> r = deleteNode(this->r,key);
 			if(this->r != NULL) {this->r->size = this->r->size-1+sz;}
+			this->z--;
 		}
 		else throw std::invalid_argument( "expception" );
 	}
@@ -436,7 +438,8 @@ int Tree::size(){
 	
 	if(this->r!=NULL){
 		//cout<< "SIZE:  " <<r->size<<" ";
-		return this->r->size;
+		//return this->r->size;
+		return this->z;
 	}
 	else return 0;
 }
