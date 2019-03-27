@@ -51,9 +51,10 @@ void Tree::insert(int key){
 		node * temp = search(key, this->r);
 		if(temp != NULL){
 			return throw std::invalid_argument( "expception" );
-		}
+		}else{
 		insert1(key,this->r);
 		if(this->r !=NULL)this->r->size=this->r->size+1;
+		}
 	}
 	else
 	{
@@ -184,6 +185,12 @@ int Tree::root(){
 * \return NULL if the node is the root (has no parent) 
 */
 int Tree::parent(int key){
+	if (this->r->data==key)
+	{
+		throw std::invalid_argument( "expception" );
+		return 0;
+	}
+		
 	if(this->r!=NULL){
 		if (this->r->data==key){
 			return 0;
@@ -294,12 +301,12 @@ void Tree::print1(node * leaf){
 */
 void Tree::remove(int key){
 	int sz = 0;
-	if((this->r!=NULL)) if(this->r->data == key) sz = this->r->size;
-	if(this->r!=NULL){
+	if((this->r!=NULL)) {
+		if(this->r->data == key) {sz = this->r->size;}
 		node* n = search(key, this->r);
 		if(n != NULL){
 			this-> r = deleteNode(this->r,key);
-			if(this->r != NULL) this->r->size = this->r->size-1+sz;
+			if(this->r != NULL) {this->r->size = this->r->size-1+sz;}
 		}
 		else throw std::invalid_argument( "expception" );
 	}
