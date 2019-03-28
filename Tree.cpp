@@ -35,6 +35,7 @@ node::node(int key){
 * Tree Constructor connect to the root
 */	
 ariel::Tree t;
+
 Tree::Tree()
 {
 	this->r = new node();
@@ -68,32 +69,17 @@ void Tree::insert(int key){
 	this->z++;
 }	
 
+Tree::~Tree()
+{
+	deleteTree(this->r);
+	cout<<"the Tree died"<<endl;
+}
+
 /**
 * This function responsible for insert the new node which created at the "insert" function
 * \r is the root
 * \key is the data of the new node
 */
- ////////////////////////////////////////////
- // החלפנו בין ה-R לKEY
-/* void Tree::insert1(node *r, int key)
-{
-	if(r!=NULL){
-		if(r->data > key){
-			insert1(r->left,key);
-		}
-		else
-		{
-			insert1(r->right,key);
-		}
-	}
-	else {
-		r = new node(key);
-	}
-}
-*/
-
-
-
 
 void Tree::insert1(int key, node *r)
 {
@@ -172,9 +158,7 @@ node *Tree::search(int key, node *leaf)
 */
 int Tree::root(){
 	if((this->r!=NULL) && (this->z!=0))return this->r->data;
-	else{ 	 
-		throw std::invalid_argument( "expception" );	
-	}
+	else throw std::invalid_argument( "expception" );
 }	
 
 /**
@@ -188,7 +172,6 @@ int Tree::root(){
 int Tree::parent(int key){
 	if (this->r->data==key)
 	{
-		throw std::invalid_argument( "expception" );
 		return 0;
 	}
 		
@@ -336,13 +319,12 @@ node* Tree::deleteNode(node* root, int data)
   } else {
      // case 1: no children
      if (root->left == NULL && root->right == NULL) {
-        delete(root); // wipe out the memory, in C, use free function
+        delete root; // wipe out the memory, in C, use free function
         root = NULL;
      }
      // case 2: one child (right)
      else if (root->left == NULL) {
         node *temp = root; // save current node as a backup
-		root->size=temp->size;
         root = root->right;
         delete temp;
 		temp = NULL;
@@ -351,7 +333,6 @@ node* Tree::deleteNode(node* root, int data)
      // case 3: one child (left)
      else if (root->right == NULL) {
         node *temp = root; // save current node as a backup
-		root->size=temp->size;
         root = root->left;
         delete temp;
 		temp = NULL;
@@ -376,69 +357,13 @@ node* Tree::FindMin(node *root) {
    return root;
 }
 
-//////////////////////////////////////////////////
-
-
-
-
-
-/*
-node* Tree::deleteNode(node* root, int key) 
-{ 
-    if (root == NULL) 
-        return root; 
-    if (root->data > key) { 
-        if(this->r->left!=NULL)root->left = deleteNode(root->left, key); 
-        return root; 
-    } 
-    else if (root->data < key) { 
-        if(this->r->right!=NULL)root->right = deleteNode(root->right, key); 
-        return root; 
-    } 
-    if (root->left == NULL) {
-		node* temp = root->right; 
-		if((this->r!=NULL) && (temp!=NULL))temp->size=this->r->size;
-        delete root; 
-		root = NULL;
-        return temp; 
-    } 
-    else if (root->right == NULL) { 
-        node* temp = root->left; 
-		if((this->r!=NULL) && (temp!=NULL))temp->size=this->r->size;
-        delete root; 
-		root = NULL;
-        return temp; 
-    } 
-    else { 
-  
-        
-			node* temp2 = root->right; 
-			node *temp3 = root->right; 
-		//temp2->size=this->r->size;
-		//temp3->size=this->r->size;
-
-        while (temp3->left != NULL) { 
-            temp2 = temp3; 
-            temp3 = temp3->left; 
-        } 
-        temp2->left = temp3->right; 
-        root->data = temp3->data; 
-		if((this->r!=NULL) && (root!=NULL)) root->size=this->r->size;
-        delete temp3;
-		temp3 = NULL;		
-        return root; 
-    } 
-}	*/
-
 /**
 * This function returns the size of the tree
 * \return the size of the tree
 */	
-int Tree::size(){
+int  Tree::size(){
 	
 	if(this->r!=NULL){
-		//cout<< "SIZE:  " <<r->size<<" ";
-		//return this->r->size;
 		return this->z;
 	}
 	else return 0;
@@ -449,7 +374,8 @@ void Tree::deleteTree(node* n)
 	if (n != NULL){
 		if(n->left != NULL) deleteTree(n->left);  
 		if(n->right != NULL)deleteTree(n->right);  
-		delete(n);
+		delete n;
+		n = NULL;
 	}
 	else return;	  
 }

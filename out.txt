@@ -1,0 +1,5 @@
+make: 'demo' is up to date.
+valgrind: this is not an executable
+valgrind: ./Tree.o: cannot execute binary file
+valgrind: this is not an executable
+valgrind: ./Tree.o: cannot execute binary file

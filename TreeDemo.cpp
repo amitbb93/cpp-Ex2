@@ -7,9 +7,9 @@
  */
 
 #include <iostream>
-using std::cout, std::endl;
-
 #include "Tree.hpp"
+ 
+using std::cout, std::endl;
 
 int main() {
   try {
@@ -40,4 +40,5 @@ int main() {
   } catch (...) {
     cout << "Caught exception!" << endl;
   }	
+
 }

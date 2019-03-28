@@ -17,8 +17,9 @@ struct node
 	{
 		public:
 		int z;
-		node* r;	
+		node* r;
 		Tree();
+		~Tree();
 		void insert(int key);
 		bool contains(int key);
 		int root();
