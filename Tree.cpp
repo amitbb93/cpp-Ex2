@@ -169,13 +169,9 @@ int Tree::root(){
 * \return NULL if the node is the root (has no parent) 
 */
 int Tree::parent(int key){
-	if (this->r->data==key)
-	{
-		return 0;
-	}
-		
 	if(this->r!=NULL){
 		if (this->r->data==key){
+			throw std::invalid_argument( "expception" );
 			return 0;
 		}
 	node *p = NULL;
