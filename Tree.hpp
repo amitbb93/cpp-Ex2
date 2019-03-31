@@ -16,7 +16,7 @@ struct node
 	class Tree
 	{
 		public:
-		int z;
+		int sz;
 		node* r;
 		Tree();
 		~Tree();

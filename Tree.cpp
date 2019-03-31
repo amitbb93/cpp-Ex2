@@ -16,7 +16,6 @@ node::node(){
 	this->data=0;
     this->left = NULL;  
     this->right = NULL;
-	size = 0;
 }
 
 /**
@@ -28,7 +27,6 @@ node::node(int key){
 	this->data=key;	
     this->left = NULL;  
     this->right = NULL; 
-	size = 0;
 }
 
 /**
@@ -39,7 +37,16 @@ ariel::Tree t;
 Tree::Tree()
 {
 	this->r = new node();
-	z = 0;
+	sz = 0;
+}
+
+/**
+*DeConstructor
+*/
+Tree::~Tree()
+{
+	deleteTree(this->r);
+	cout<<"the Tree died"<<endl;
 }
 
 /**
@@ -49,13 +56,12 @@ Tree::Tree()
 * \*temp is a temporary node pointer
 */
 void Tree::insert(int key){
-	if((r!=NULL) && (this->z!=0)){
+	if((r!=NULL) && (this->sz!=0)){
 		node * temp = search(key, this->r);
 		if(temp != NULL){
 			return throw std::invalid_argument( "expception" );
 		}else{
 		insert1(key,this->r);
-		if(this->r !=NULL)this->r->size=this->r->size+1;
 		}
 	}
 	else
@@ -64,16 +70,9 @@ void Tree::insert(int key){
 		this->r->data=key;
 		this->r->left=NULL;
 		this->r->right=NULL;
-		this->r->size=this->r->size+1;
 	}
-	this->z++;
+	this->sz++;
 }	
-
-Tree::~Tree()
-{
-	deleteTree(this->r);
-	cout<<"the Tree died"<<endl;
-}
 
 /**
 * This function responsible for insert the new node which created at the "insert" function
@@ -157,7 +156,7 @@ node *Tree::search(int key, node *leaf)
 * \return the data of the root
 */
 int Tree::root(){
-	if((this->r!=NULL) && (this->z!=0))return this->r->data;
+	if((this->r!=NULL) && (this->sz!=0))return this->r->data;
 	else throw std::invalid_argument( "expception" );
 }	
 
@@ -284,14 +283,11 @@ void Tree::print1(node * leaf){
 * \*n is the node needed for the return from search function
 */
 void Tree::remove(int key){
-	int sz = 0;
 	if((this->r!=NULL)) {
-		if(this->r->data == key) {sz = this->r->size;}
 		node* n = search(key, this->r);
 		if(n != NULL){
 			this-> r = deleteNode(this->r,key);
-			if(this->r != NULL) {this->r->size = this->r->size-1+sz;}
-			this->z--;
+			this->sz--;
 		}
 		else throw std::invalid_argument( "expception" );
 	}
@@ -364,7 +360,7 @@ node* Tree::FindMin(node *root) {
 int  Tree::size(){
 	
 	if(this->r!=NULL){
-		return this->z;
+		return this->sz;
 	}
 	else return 0;
 }
